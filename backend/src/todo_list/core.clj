@@ -3,7 +3,7 @@
   (:require [org.httpkit.server]
             [clojure.data.json :as json]
             [clojure.string])
-  (:use [compojure.route :only [not-found]]
+  (:use [compojure.route :only [not-found files]]
         [compojure.core :only [defroutes GET POST DELETE ANY context]]
         org.httpkit.server))
 
@@ -27,15 +27,13 @@
    :headers {"Content-Type" "text/json"}})
 
 (defroutes all-routes
-  (GET "/item" [] (get-items))
-  (POST "/item/:text" [text] (add-item text))
-  (DELETE "/item/:text" [text] (remove-item text))
-  ;; (files "/static/") ;; static file url prefix /static, in `public` folder
+  (GET "/api/v1/item" [] (get-items))
+  (POST "/api/v1/item/:text" [text] (add-item text))
+  (DELETE "/api/v1/item/:text" [text] (remove-item text))
+  (files "/" {:root "static"}) ;; static file url prefix /static, in `static` folder
   (not-found "<p>Page not found.</p>")) ;; all other, return 404
 
 
-
-
 (defn -main []
-  (println "Starting server 2!")
+  (println "Starting server!")
   (run-server all-routes {:port 8080}))

@@ -2,3 +2,6 @@
 .clj-kondo
 target
 pom.xml
+.cpcache
+backend/static/build/*
+out
