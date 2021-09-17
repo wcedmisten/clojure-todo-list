@@ -20,9 +20,16 @@
    :body "Success"
    :headers {"Content-Type" "text/json"}})
 
+(defn remove-item [item]
+  (swap! items disj item)
+  {:status 200
+   :body "Success"
+   :headers {"Content-Type" "text/json"}})
+
 (defroutes all-routes
   (GET "/item" [] (get-items))
   (POST "/item/:text" [text] (add-item text))
+  (DELETE "/item/:text" [text] (remove-item text))
   ;; (files "/static/") ;; static file url prefix /static, in `public` folder
   (not-found "<p>Page not found.</p>")) ;; all other, return 404
 
