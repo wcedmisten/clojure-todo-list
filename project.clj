@@ -5,7 +5,8 @@
             :url "https://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [http-kit "2.5.3"]
-                 [compojure "1.6.2"]]
+                 [compojure "1.6.2"]
+                 [org.clojure/data.json  "0.2.7"]]
   :main ^:skip-aot todo-list.core
   :target-path "target/%s"
   :aot [todo-list.core])

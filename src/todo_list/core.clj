@@ -1,7 +1,9 @@
 (ns todo-list.core
   (:gen-class)
-  (:require [org.httpkit.server])
-  (:use [compojure.route :only [files not-found]]
+  (:require [org.httpkit.server]
+            [clojure.data.json :as json]
+            [clojure.string])
+  (:use [compojure.route :only [not-found]]
         [compojure.core :only [defroutes GET POST DELETE ANY context]]
         org.httpkit.server))
 
@@ -9,7 +11,7 @@
 
 (defn get-items [] ;; ordinary clojure function, accepts a request map, returns a response map
   {:status 200
-   :body (seq (deref items))
+   :body (json/write-str {:data  (seq (deref items))})
    :headers {"Content-Type" "text/json"}})
 
 (defn add-item [item]
